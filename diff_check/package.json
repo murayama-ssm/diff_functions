@@ -1,0 +1,22 @@
+{
+  "name": "ss",
+  "version": "1.0.0",
+  "description": "",
+  "main": "ss.js",
+  "scripts": {
+    "start": "functions-framework --target=helloPubSub"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@google-cloud/functions-framework": "^3.1.2",
+    "@google-cloud/storage": "^5.18.2",
+    "axios": "^0.27.2",
+    "lodash": "^4.17.21",
+    "mkdirp": "^1.0.4",
+    "playwright": "^1.25.1",
+    "puppeteer": "^17.0.0",
+    "@google-cloud/pubsub": "^3.1.1"
+  }
+}
