@@ -1,0 +1,14 @@
+steps:
+  - name: gcr.io/google.com/cloudsdktool/cloud-sdk
+    args:
+      - gcloud
+      - functions
+      - deploy
+      - '${_FUNCTION_NAME}'
+      - '--region=${_REGION}'
+      - '--trigger-topic'
+      - '${_TOPIC}'
+      - '--runtime=${_RUNTIME}'
+      - '--set-env-vars'
+      - 'X_MICROCMS_API_KEY=${_X_MICROCMS_API_KEY}'
+    dir: functions

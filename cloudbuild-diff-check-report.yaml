@@ -1,0 +1,34 @@
+steps:
+  - name: gcr.io/cloud-builders/gsutil
+    args:
+      - '-c'
+      - |
+        mkdir output;
+        cd output;
+        gsutil -m cp -r ${_STORAGE_LOCATION}reg-cli-expected/ .;
+        gsutil -m cp -r ${_STORAGE_LOCATION}reg-cli-actual/ .;
+        ls
+    dir: functions
+    entrypoint: /bin/sh
+  - name: gcr.io/cloud-builders/npm
+    args:
+      - install
+    dir: functions
+    entrypoint: npm
+  - name: node
+    args:
+      - '-c'
+      - >
+        npx reg-cli output/reg-cli-actual/ output/reg-cli-expected
+        output/reg-cli-diff -R ./output/report.html -P ${_STORAGE_URL} -T 0.05||
+        true
+    dir: functions
+    entrypoint: /bin/sh
+  - name: gcr.io/cloud-builders/gsutil
+    args:
+      - '-c'
+      - |
+        cd output && gsutil -m cp -r ./reg-cli-diff ${_STORAGE_LOCATION};
+        gsutil cp report.html ${_STORAGE_LOCATION}
+    dir: functions
+    entrypoint: /bin/sh

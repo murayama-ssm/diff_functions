@@ -1,18 +1,14 @@
 /**
- * Responds to any HTTP request.
- *
- * @param {!express:Request} req HTTP request context.
- * @param {!express:Response} res HTTP response context.
+ * 店舗情報を全件取得した後、スクリーンショットをpararrelに撮影するためTOPICをpublishする
  */
-exports.helloWorld = async (req, res) => {
+module.exports = async (req, res) => {
     function getContents(params) {
         const axios = require("axios")
         return new Promise((resolve, reject) => {
             axios.get(`https://trial-net.microcms.io/api/v1/store`, {
                 params: params,
                 headers: {
-                    // "X-MICROCMS-API-KEY": process.env.X_MICROCMS_API_KEY
-                    "X-MICROCMS-API-KEY": "9bca79b2c9a64df9b940a2bed54373e9be8e"
+                    "X-MICROCMS-API-KEY": process.env.X_MICROCMS_API_KEY
                 }
             }).then((res) => {
                 resolve(res.data)
@@ -29,14 +25,14 @@ exports.helloWorld = async (req, res) => {
             offset
         }
         const response = await getContents(params)
-        // if (response.offset + response.limit < response.totalCount) {
-        //     const contents = await getAllContents(response.limit, response.offset + response.limit)
-        //     return [...response.contents, ...contents]
-        // }
+        if (response.offset + response.limit < response.totalCount) {
+            const contents = await getAllContents(response.limit, response.offset + response.limit)
+            return [...response.contents, ...contents]
+        }
         return response.contents
     }
 
-    const topicNameOrId = 'test-pubsub';
+    const topicNameOrId = process.env.TOPIC
     const { PubSub } = require('@google-cloud/pubsub');
 
     const pubSubClient = new PubSub();
@@ -59,7 +55,7 @@ exports.helloWorld = async (req, res) => {
         })
     }
 
-    const contents = await getAllContents(10)
+    const contents = await getAllContents()
     const promiseList = []
 
     for (const content of contents) {
@@ -68,5 +64,4 @@ exports.helloWorld = async (req, res) => {
     await Promise.all(promiseList)
 
     console.log('Finished!')
-    res.send('OK');
 };

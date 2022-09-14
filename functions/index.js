@@ -1,0 +1,16 @@
+const backupMicrocms = require("./src/backupMicrocms.js");
+const registerFlyer = require("./src/registerFlyer.js");
+const sendMail = require("./src/sendMail.js");
+const mailMagSendMail = require("./src/mailMagSendMail.js");
+const chirashiPdf = require("./src/chirashiPdf.js");
+const checkContentId = require("./src/checkContentId.js");
+const takeScreenShot = require("./src/takeScreenshot.js")
+const triggerTakeScreenShot = require("./src/triggerTakeScreenshot.js")
+exports.backupMicrocms = backupMicrocms;
+exports.sendMail = sendMail;
+exports.registerFlyer = registerFlyer;
+exports.mailMagSendMail = mailMagSendMail;
+exports.chirashiPdf = chirashiPdf;
+exports.checkContentId = checkContentId;
+exports.takeScreenShot = takeScreenShot;
+exports.triggerTakeScreenShot = triggerTakeScreenShot;

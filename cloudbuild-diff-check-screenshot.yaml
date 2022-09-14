@@ -1,0 +1,7 @@
+steps:
+  - name: gcr.io/cloud-builders/gcloud
+    args:
+      - '-c'
+      - |
+        gcloud pubsub topics publish ${_TOPIC} --message=publish
+    entrypoint: /bin/sh
