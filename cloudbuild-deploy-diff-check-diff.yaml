@@ -7,7 +7,7 @@ steps:
       - '${_FUNCTION_NAME}'
       - '--region=${_REGION}'
       - '--trigger-topic'
-      - '${_TOPIC}'
+      - '${_TRIGGER_TOPIC}'
       - '--runtime=${_RUNTIME}'
       - '--memory'
       - '${_MEMORY}'
