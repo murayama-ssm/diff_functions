@@ -6,11 +6,8 @@ steps:
       - deploy
       - '${_FUNCTION_NAME}'
       - '--region=${_REGION}'
-      - '--trigger-topic'
-      - '${_TOPIC}'
+      - '--trigger-topic=${_TOPIC}'
       - '--runtime=${_RUNTIME}'
-      - '--service-account'
-      - '${_SERVICE_ACCOUNT}'
-      - '--set-env-vars'
-      - 'X_MICROCMS_API_KEY=${_X_MICROCMS_API_KEY},TOPIC=${_TOPIC}'
+      - '--service-account=${_SERVICE_ACCOUNT}'
+      - '--set-env-vars=X_MICROCMS_API_KEY=${_X_MICROCMS_API_KEY},TOPIC=${_TOPIC}'
     dir: function
