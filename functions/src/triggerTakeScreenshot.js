@@ -1,7 +1,7 @@
 /**
  * 店舗情報を全件取得した後、スクリーンショットをpararrelに撮影するためTOPICをpublishする
  */
-module.exports = async (req, res) => {
+module.exports = async () => {
     function getContents(params) {
         const axios = require("axios")
         return new Promise((resolve, reject) => {
